@@ -52,4 +52,4 @@ y_pred = stacking_regressor.predict(X_test)
 pd.DataFrame({
     "Id": X_test["Id"],
     "SalePrice": y_pred,
-}).to_csv("stacking_baselince.csv", index=False)
+}).to_csv("stacking_baseline.csv", index=False)

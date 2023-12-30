@@ -89,4 +89,4 @@ y_pred = model.predict(X_test)
 pd.DataFrame({
     "Id": X_test["Id"],
     "SalePrice": y_pred,
-}).to_csv("lgb_baselince.csv", index=False)
+}).to_csv("lgb_baseline.csv", index=False)

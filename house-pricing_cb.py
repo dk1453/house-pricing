@@ -21,6 +21,21 @@ Xy_train = Xy_all[~Xy_all["SalePrice"].isna()]
 X_train = Xy_train.drop(columns=["SalePrice"])
 y_train = Xy_train["SalePrice"]
 
+
+# # parameter tuning
+# model = cb.CatBoostRegressor()
+#
+# grid = {'learning_rate': [0.03, 0.1],
+#         'depth': [4, 6, 10],
+#         'l2_leaf_reg': [1, 3, 5, 7, 9]}
+# grid_search = GridSearchCV(estimator=model,
+#                            param_grid=grid,
+#                            cv=5,
+#                            n_jobs=-1)
+# grid_search.fit(X_train,y_train)
+# print("Best Hyperparameters: ", grid_search.best_params_)
+
+
 model = cb.CatBoostRegressor()
 
 model.fit(X_train, y_train)
@@ -28,4 +43,4 @@ y_pred = model.predict(X_test)
 pd.DataFrame({
     "Id": X_test["Id"],
     "SalePrice": y_pred,
-}).to_csv("cb_baselince.csv", index=False)
+}).to_csv("cb_baseline.csv", index=False)

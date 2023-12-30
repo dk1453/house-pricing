@@ -15,7 +15,7 @@ ordinal_encoder = OrdinalEncoder(
     unknown_value=-1,
     encoded_missing_value=-1,
 ).set_output(transform="pandas")
-Xy_all[cat_features] = ordinal_encoder.fit_transform(Xy_all[cat_features])
+Xy_all[cat_features] = ordinal_encoder.fit_transform(Xy_all[cat_features])#tree-based model does not require one-hot encoding, with dummy variable, it is the design matrix that changes, not parameter matrix
 X_test = Xy_all[Xy_all["SalePrice"].isna()].drop(columns=["SalePrice"])
 Xy_train = Xy_all[~Xy_all["SalePrice"].isna()]
 X_train = Xy_train.drop(columns=["SalePrice"])
@@ -39,4 +39,4 @@ print(grid_search.best_params_)
 # pd.DataFrame({
 #     "Id": X_test["Id"],
 #     "SalePrice": y_pred,
-# }).to_csv("xgb_baselince.csv", index=False)
+# }).to_csv("xgb_baseline.csv", index=False)
