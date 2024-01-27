@@ -52,26 +52,25 @@ def MissingValueInColumns(df, show=False):
         print(Festures_with_missing_values)
 
 
+if __name__ == '__main__':
+    # test
+    Xy_train = pd.read_csv('train.csv')
+    X_test = pd.read_csv('test.csv')
+    Xy_all = pd.concat([Xy_train, X_test], axis=0)
+    cat_features = Xy_all.columns[Xy_all.dtypes == 'object']
+    ordinal_encoder = OrdinalEncoder(
+        dtype=np.int32,
+        handle_unknown='use_encoded_value',
+        unknown_value=-1,
+        encoded_missing_value=-1,
+    ).set_output(transform="pandas")
+    Xy_all[cat_features] = ordinal_encoder.fit_transform(Xy_all[cat_features])
+    X_test = Xy_all[Xy_all["SalePrice"].isna()].drop(columns=["SalePrice"])
+    Xy_train = Xy_all[~Xy_all["SalePrice"].isna()]
+    X_train = Xy_train.drop(columns=["SalePrice"])
+    y_train = Xy_train["SalePrice"]
 
+    MissingValueInRows(X_train)
+    MissingValueInColumns(X_train)
+    MissingValueInColumns(X_train, True)
 
-
-# test
-Xy_train = pd.read_csv('train.csv')
-X_test = pd.read_csv('test.csv')
-Xy_all = pd.concat([Xy_train, X_test], axis=0)
-cat_features = Xy_all.columns[Xy_all.dtypes == 'object']
-ordinal_encoder = OrdinalEncoder(
-    dtype=np.int32,
-    handle_unknown='use_encoded_value',
-    unknown_value=-1,
-    encoded_missing_value=-1,
-).set_output(transform="pandas")
-Xy_all[cat_features] = ordinal_encoder.fit_transform(Xy_all[cat_features])
-X_test = Xy_all[Xy_all["SalePrice"].isna()].drop(columns=["SalePrice"])
-Xy_train = Xy_all[~Xy_all["SalePrice"].isna()]
-X_train = Xy_train.drop(columns=["SalePrice"])
-y_train = Xy_train["SalePrice"]
-
-# MissingValueInRows(X_train)
-# MissingValueInColumns(X_train)
-# MissingValueInColumns(X_train,True)

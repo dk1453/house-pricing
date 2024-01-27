@@ -5,6 +5,8 @@ import lightgbm as lgb
 import xgboost as xgb
 import catboost as cb
 from sklearn.ensemble import StackingRegressor
+from sklearn.linear_model import LinearRegression
+
 
 
 # feature engineering
@@ -40,10 +42,17 @@ estimators = [
     ('cb', cb.CatBoostRegressor())
 ]
 
-# Create a stacking regressor
+# # Create a stacking regressor
+# stacking_regressor = StackingRegressor(
+#     estimators=estimators,
+#     final_estimator=cb.CatBoostRegressor()
+# )
+
+# Create the second stacking regressor using logistic
+
 stacking_regressor = StackingRegressor(
     estimators=estimators,
-    final_estimator=cb.CatBoostRegressor()
+    final_estimator= LinearRegression()
 )
 
 # Train and use the stacking regressor

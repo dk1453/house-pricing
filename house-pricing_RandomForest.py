@@ -4,7 +4,6 @@ from sklearn.preprocessing import OrdinalEncoder
 from sklearn.ensemble import RandomForestRegressor
 from function import MissingValueInRows, MissingValueInColumns
 
-
 # feature engineering
 Xy_train = pd.read_csv('train.csv')
 X_test = pd.read_csv('test.csv')
@@ -24,9 +23,9 @@ y_train = Xy_train["SalePrice"]
 
 # print(X_train.head())
 
-MissingValueInRows(X_train) # 339 missing value
+# MissingValueInRows(X_train) # 339 missing value
 print("---------------------------")
-MissingValueInColumns(X_train)# 259+81+8=348>339, there are samples with more than one missing value
+# MissingValueInColumns(X_train)# 259+81+8=348>339, there are samples with more than one missing value
 print("Training data has {} samples and {} features".format(X_train.shape[0], X_train.shape[1]))
 # Now we know the features with missing value and the corresponding number of missing value. It's hard to detect if the missing value is random so I have to impute
 # get info of features with missing values
@@ -45,8 +44,8 @@ print('------')
 print("The number of missing values in test data set is {}.".format(X_test.isna().sum().sum()))
 print('------')
 
-MissingValueInRows(X_test)
-MissingValueInColumns(X_test)
+# MissingValueInRows(X_test)
+# MissingValueInColumns(X_test)
 
 # repeat the process for the test dataset
 X_test['LotFrontage'] = Xy_train.groupby('Neighborhood')['LotFrontage'].transform(lambda x:x.fillna(x.median()))
